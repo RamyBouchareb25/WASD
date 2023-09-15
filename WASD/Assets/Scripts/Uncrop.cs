@@ -2,59 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Uncrop : MonoBehaviour
 {
-    
+    [SerializeField]
+    private GameObject curentCrop;
     [SerializeField]
     private LayerMask Crop;
     [SerializeField]
     private float radius = 5f;
     private Animator animator;
     private bool isHitting = true;
+    private bool IsInteracting = false;
+    private float savePosition;
+    private Rigidbody2D rb;
+    private movement moving;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        moving = GetComponent<movement>();  
     }
 
     private void Start()
     {
-
+        isHitting = false;
+        IsInteracting = false;
+         savePosition = this.transform.position.y;
     }
-    private void Detection()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Collider2D[] cropColliders = Physics2D.OverlapCircleAll(this.transform.position, radius, Crop);
+        if (collision.gameObject.CompareTag("Crop"))
+        {
+            print("Hit");
+            isHitting = true;
+            curentCrop = collision.gameObject;
 
-        foreach (Collider2D collider in cropColliders)
-        {   if(collider != null)
-            {
-                Debug.Log(collider.name);
-                isHitting = true;
-            }
-            else
-            {
-                isHitting = false;
-            }
-           
-           
         }
-
-
     }
 
-    private void OnInteract()
+    private void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Crop"))
+        {
+            isHitting = false;
+            curentCrop = null;
+        }
+    }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        print("on interact");
         if (isHitting)
         {
-            animator.SetTrigger("IsInteracting");
+            Debug.Log(isHitting);
+
+            IsInteracting = true;
+            if (IsInteracting && context.performed)
+            {
+                
+                this.transform.position = new Vector2(this.transform.position.x, -1.71f);
+                
+                if (curentCrop != null)
+                Destroy(curentCrop);
+                animator.SetBool("IsInteracting", true);
+                StartCoroutine(wait());
+                StartCoroutine(ActivateMovement());
+            }
+
         }
-       
+
     }
 
     private void Update()
     {
-        Detection();
+        if (IsInteracting)
+        {
+            moving.enabled = false;
+        }
+        else
+        {
+            moving.enabled = true;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -62,5 +92,21 @@ public class Uncrop : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+
+    private IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.50f);
+        Debug.Log("I am working");
+        animator.SetBool("IsInteracting", false);
+        IsInteracting = false;
+    }
+    private IEnumerator ActivateMovement()
+    {
+        Debug.Log("Please work");
+        yield return new WaitForSeconds(4f);
+        IsInteracting = false;
+    }
+
+
 
 }
