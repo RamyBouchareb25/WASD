@@ -16,7 +16,7 @@ public class Follow : MonoBehaviour
     }
     private void Update()
     {
-        FollowCHief();
+        //FollowCHief();
     }
     private void FollowCHief()
     {
