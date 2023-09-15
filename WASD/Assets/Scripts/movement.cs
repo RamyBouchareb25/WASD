@@ -10,8 +10,10 @@ public class movement : MonoBehaviour
     private SpriteRenderer sprite;
     private Vector2 moveMent;
     [SerializeField]
-    private float speed = 0f,minVelocity , maxVelocity ;    
+    private float speed = 0f,minVelocity , maxVelocity;
     private bool flip = false;
+    [SerializeField]
+    private Sprite playerSprite;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class movement : MonoBehaviour
 
     private void Start()
     {
-        
+        sprite.sprite = playerSprite;
     }
 
     public void OnMove(InputAction.CallbackContext callback)

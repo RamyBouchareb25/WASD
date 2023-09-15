@@ -15,7 +15,10 @@ public class Follow : MonoBehaviour
     private float randomOffset;
     private SpriteRenderer sprite;
     private Animator animator;
+    
     private bool isFollowing;
+    [SerializeField]
+    private Sprite MinionSPrite;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +28,7 @@ public class Follow : MonoBehaviour
 
     private void Start()
     {
+        sprite.sprite = MinionSPrite;
         chiefPosition = GameObject.FindGameObjectWithTag("Player").transform;
         randomOffset = Random.Range(min, max);
         speed = Random.Range(minSpeed, maxSpeed);
