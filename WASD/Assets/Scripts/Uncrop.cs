@@ -18,6 +18,7 @@ public class Uncrop : MonoBehaviour
     private float savePosition;
     private Rigidbody2D rb;
     private movement moving;
+    private bool canMove;
 
     private void Awake()
     {
@@ -30,7 +31,8 @@ public class Uncrop : MonoBehaviour
     {
         isHitting = false;
         IsInteracting = false;
-         savePosition = this.transform.position.y;
+        savePosition = this.transform.position.y;
+        canMove = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,8 +63,9 @@ public class Uncrop : MonoBehaviour
             IsInteracting = true;
             if (IsInteracting && context.performed)
             {
+                canMove = false;
                 
-                this.transform.position = new Vector2(this.transform.position.x, -1.71f);
+                this.transform.position = new Vector2(this.transform.position.x, -1.75f);
                 
                 if (curentCrop != null)
                 Destroy(curentCrop);
@@ -77,7 +80,7 @@ public class Uncrop : MonoBehaviour
 
     private void Update()
     {
-        if (IsInteracting)
+        if (!canMove)
         {
             moving.enabled = false;
         }
@@ -102,9 +105,10 @@ public class Uncrop : MonoBehaviour
     }
     private IEnumerator ActivateMovement()
     {
-        Debug.Log("Please work");
-        yield return new WaitForSeconds(4f);
-        IsInteracting = false;
+        
+        yield return new WaitForSeconds(1f);
+        canMove = true;
+        this.transform.position = new Vector2(this.transform.position.x, savePosition);
     }
 
 
