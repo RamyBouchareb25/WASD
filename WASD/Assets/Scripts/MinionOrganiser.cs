@@ -20,7 +20,7 @@ public class MinionOrganiser : MonoBehaviour
             foreach(Transform t in childs)
             {
                 minions.Add(t.gameObject);
-                Debug.Log(t);
+               
             }
         }
     }

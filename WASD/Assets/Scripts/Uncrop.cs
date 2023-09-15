@@ -4,17 +4,39 @@ using UnityEngine;
 
 public class Uncrop : MonoBehaviour
 {
-    RaycastHit2D hit;
+    
     [SerializeField]
-    private Vector2 offset;
+    private LayerMask Crop;
+    [SerializeField]
+    private float radius = 5f;
+
     private void Start()
     {
 
     }
-
-    private void Raycast()
+    private void Detection()
     {
-        Vector2 direction = new Vector2(this.transform.position.x , this.transform.position.y) + offset;
-        Physics2D.Raycast(this.transform.position, direction);
+        Collider2D[] cropColliders = Physics2D.OverlapCircleAll(this.transform.position, radius, Crop);
+
+        foreach (Collider2D collider in cropColliders)
+        {
+           Debug.Log(collider.name);
+            
+        }
+
+
+       
     }
+
+    private void Update()
+    {
+        Detection();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
 }

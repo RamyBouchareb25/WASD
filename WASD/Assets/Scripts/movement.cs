@@ -5,37 +5,72 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
+    private Animator animator;
     private Rigidbody2D rb;
-    private float moveMent;
+    private SpriteRenderer sprite;
+    private Vector2 moveMent;
     [SerializeField]
-    private float speed = 0f;
+    private float speed = 0f,minVelocity , maxVelocity ;    
+    private bool flip = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-
+        
     }
 
     public void OnMove(InputAction.CallbackContext callback)
     {
-       moveMent = callback.ReadValue<Vector2>().x;
+        moveMent = callback.ReadValue<Vector2>();
+        if (moveMent.x != 0)
+        {
+            animator.SetBool("IsWalking", true);
+        }else if(moveMent.x == 0)
+        {
+            animator.SetBool("IsWalking", false);
+        }
        
+        if (moveMent.x < 0f)
+        {
+            flip = true;
+            
+        }
+        else if (moveMent.x > 0f)
+        {
+            flip = false;
+            
+        }
+
     }
 
 
     private void Update()
     {
-       
+
     }
 
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveMent * speed, rb.velocity.y);
+        rb.AddForce(speed * moveMent * Time.fixedDeltaTime, ForceMode2D.Force);
+        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, minVelocity, maxVelocity), rb.velocity.y);
+        FlipPlayer();
+    }
+
+    private void Move()
+    {
+
+    }
+
+    private void FlipPlayer()
+    {
+        sprite.flipX = flip;
     }
 
 
