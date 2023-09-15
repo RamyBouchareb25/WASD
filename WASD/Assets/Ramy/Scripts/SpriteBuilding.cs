@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ramy.Scripts;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,10 +12,13 @@ public class SpriteBuilding : MonoBehaviour
     private GameObject _gameObject;
     private Camera _camera;
     private GameObject lineGameObject;
+    private GameManager _gameManager = GameManager.Instance();
     private LineRenderer Line;
     [SerializeField] private float minDistance = 0.1f;
     private Vector3 previousPos;
     private bool newLine = true;
+    [SerializeField] private CircleCollider2D SnappingPoint;
+
     private void Start()
     {
         _camera = Camera.main;
@@ -30,32 +34,43 @@ public class SpriteBuilding : MonoBehaviour
         previousPos = lineGameObject.transform.position;
         Line.positionCount = 1;
     }
-
+    
     public void newLineM()
     {
+        
         Line.positionCount = 1;
         newLine = true;
-        print("released :" +newLine);
     }
-    private void Update()
+    
+    private void DrawLine()
     {
-        
         var pos = Mouse.current.position.ReadValue();
         if (!Mouse.current.leftButton.isPressed) return;
         var worldPos = _camera.ScreenToWorldPoint(pos);
-        var worldPos2 = new Vector3(worldPos.x,worldPos.y,0);
-        if (!(Vector3.Distance(worldPos2, previousPos) > minDistance)) return;
-        if (previousPos == lineGameObject.transform.position || newLine)
+        var newPos = new Vector3(worldPos.x,worldPos.y,0);
+        if (!(Vector3.Distance(newPos, previousPos) > minDistance)) return;
+        var isInBounds = SnappingPoint.bounds.Contains(newPos);
+        if (newLine && isInBounds)
         {
-            Line.SetPosition(0,worldPos2);
+            var targetPos = SnappingPoint.transform.position;
+            targetPos.z = 0;
+            Line.SetPosition(0,targetPos);
+            newLine = false;  
+            
+        } else if (previousPos == lineGameObject.transform.position || newLine)
+        {
+            Line.SetPosition(0,newPos);
             newLine = false;
         }
         var positionCount = Line.positionCount;
         positionCount++;
         Line.positionCount = positionCount;
-        Line.SetPosition(positionCount -1, worldPos2);
-        previousPos = worldPos2;
-        //Instantiate(_gameObject,worldPos2,quaternion.identity);
-        
+        Line.SetPosition(positionCount -1, newPos);
+        previousPos = newPos;
+    }
+    private void Update()
+    {
+        if (_gameManager.isPaused) return;
+        DrawLine();
     }
 }
