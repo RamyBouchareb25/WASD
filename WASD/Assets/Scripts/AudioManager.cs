@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource SFXSource;
 
     public AudioClip Music;
-
+    public AudioClip Grass;
     private void Start()
     {
         PlayMusic();
@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
 
     private void PlayMusic()
     {
-        AudioClip clip = Music;
+        MusicSource.clip = Music;
         MusicSource.Play();
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Uncrop : MonoBehaviour
@@ -9,6 +10,13 @@ public class Uncrop : MonoBehaviour
     private LayerMask Crop;
     [SerializeField]
     private float radius = 5f;
+    private Animator animator;
+    private bool isHitting = true;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -19,12 +27,28 @@ public class Uncrop : MonoBehaviour
         Collider2D[] cropColliders = Physics2D.OverlapCircleAll(this.transform.position, radius, Crop);
 
         foreach (Collider2D collider in cropColliders)
-        {
-           Debug.Log(collider.name);
-            
+        {   if(collider != null)
+            {
+                Debug.Log(collider.name);
+                isHitting = true;
+            }
+            else
+            {
+                isHitting = false;
+            }
+           
+           
         }
 
 
+    }
+
+    private void OnInteract()
+    {
+        if (isHitting)
+        {
+            animator.SetTrigger("IsInteracting");
+        }
        
     }
 

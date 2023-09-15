@@ -14,9 +14,11 @@ public class movement : MonoBehaviour
     private bool flip = false;
     [SerializeField]
     private Sprite playerSprite;
+    private AudioManager audioManager;
 
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
@@ -24,6 +26,7 @@ public class movement : MonoBehaviour
 
     private void Start()
     {
+
         sprite.sprite = playerSprite;
     }
 
@@ -33,7 +36,9 @@ public class movement : MonoBehaviour
         if (moveMent.x != 0)
         {
             animator.SetBool("IsWalking", true);
-        }else if(moveMent.x == 0)
+            audioManager.PlaySFX(audioManager.Grass);
+        }
+        else if(moveMent.x == 0)
         {
             animator.SetBool("IsWalking", false);
         }
@@ -60,7 +65,7 @@ public class movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(speed * moveMent * Time.fixedDeltaTime, ForceMode2D.Force);
+        rb.AddForce(speed * new Vector2(moveMent.x , 0f) * Time.fixedDeltaTime, ForceMode2D.Force);
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, minVelocity, maxVelocity), rb.velocity.y);
         FlipPlayer();
     }
