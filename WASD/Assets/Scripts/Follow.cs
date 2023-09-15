@@ -9,27 +9,34 @@ public class Follow : MonoBehaviour
 
     [SerializeField]
     private float minPosition = 10f, speed;
+    [SerializeField]
+    private LayerMask chiefLayer, minionLayer;
+    [SerializeField]
+    private float min, max,minSpeed, maxSpeed;
+    private float randomOffset;
+
 
     private void Start()
     {
         chiefPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        randomOffset = Random.Range(min, max);
+        speed = Random.Range(minSpeed, maxSpeed);
+
     }
     private void Update()
     {
+        
         FollowCHief();
     }
     private void FollowCHief()
     {
-        Vector2 direction = chiefPosition.position - this.transform.position;
+        //Vector2 direction = chiefPosition.position - this.transform.position;
 
-        float distance = direction.magnitude;
+        Vector2 newPosition = Vector2.MoveTowards(this.transform.position, new Vector2(chiefPosition.position.x + randomOffset, chiefPosition.position.y), speed * Time.deltaTime);
 
-        if (distance > minPosition)
-        {
-            Vector2 movement = Vector2.MoveTowards(this.transform.position, chiefPosition.position, speed * Time.deltaTime);
-
-            this.transform.position = movement;
-        }
-
+        this.transform.position = new Vector2(newPosition.x , this.transform.position.y);
     }
+
+
+
 }
