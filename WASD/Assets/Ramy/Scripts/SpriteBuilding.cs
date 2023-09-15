@@ -1,18 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpriteBuilding : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var pos = Mouse.current.position.ReadValue();
+        if (!Mouse.current.leftButton.wasPressedThisFrame) return;
+        print(pos);
     }
 }
