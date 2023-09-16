@@ -15,6 +15,7 @@ public class MinionOrganiser : MonoBehaviour
     private int min, max;
     [SerializeField]
     private TextMeshProUGUI minionCounter;
+    private bool buildable = false;
 
     private void Awake()
     {
@@ -22,11 +23,11 @@ public class MinionOrganiser : MonoBehaviour
     }
     private void Start()
     {
-        childs = gameObject.GetComponentsInChildren<Transform>();
+        childs = GetComponentsInChildren<Transform>();
         if (childs != null)
         {
             foreach (Transform t in childs)
-            {
+            {   if (t == this.transform) continue;
                 minions.Add(t.gameObject);
 
                 Debug.Log(minions.Count);
@@ -51,10 +52,25 @@ public class MinionOrganiser : MonoBehaviour
             UpdateMinionCounter();
         }
     }
-    private void DeleteMinion()
+    public bool DeleteMinion(int count)
     {
-
-
+        Debug.Log(count + " " + minions.Count);
+        if (count < minions.Count)
+        {
+            buildable = true;
+           
+            for (int i = 0; i < count; i++)
+            {
+                Destroy(minions[i]);
+                minions.RemoveAt(i);
+            }
+            UpdateMinionCounter();
+            return true;
+        }
+        else
+        {
+            return false;
+                    }
 
     }
     private void UpdateMinionCounter()
@@ -62,5 +78,9 @@ public class MinionOrganiser : MonoBehaviour
         Debug.Log(minionCounter.text);
         minionCounter.text = minions.Count.ToString();
     }
-
+    public bool Buildable()
+    {
+        return buildable;
+    }
+   
 }

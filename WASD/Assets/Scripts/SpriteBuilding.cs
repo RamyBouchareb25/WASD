@@ -24,7 +24,8 @@ public class SpriteBuilding : MonoBehaviour
     [SerializeField]private GameObject start,end,humanBridge;
     [SerializeField] private Vector3 offset;
     [SerializeField]private Vector3 offsetBridge = new Vector3(0.9f,0.4f,0);
-
+    private Vector3 startPosition;
+    [SerializeField] private MinionOrganiser orgnizer;
     private void Awake()
     {
         SnappingPoints = GameObject.FindGameObjectsWithTag("Snap");
@@ -58,17 +59,24 @@ public class SpriteBuilding : MonoBehaviour
         var angle = UtilsClass.GetAngleFromVectorFloat(new Vector3(position.x - position1.x,position.y - position1.y,0));
         exBridge.transform.rotation = quaternion.Euler(0,0,-angle);
         var firstBridge = exBridge;
-        for (var i = 0; i < peopleCount; i++)
+        var buildable = orgnizer.DeleteMinion(peopleCount - 1);
+        //var canBuild = orgnizer.Buildable();
+        if (buildable)
         {
-            
-            Vector3 newPosition = position2 + directionToEnd * (i + offsetBridge.x);
-            var newBridge = Instantiate(humanBridge,newPosition,quaternion.identity);
-            newBridge.GetComponent<HingeJoint2D>().connectedBody = i == 0 ?  startClone.GetComponent<Rigidbody2D>(): exBridge.GetComponent<Rigidbody2D>();
-            newBridge.transform.rotation = Quaternion.Euler(0,0,angle);
-            exBridge = newBridge;
+            for (var i = 0; i < peopleCount - 1; i++)
+            {
+
+                Vector3 newPosition = position2 + directionToEnd * (i + offsetBridge.x);
+                var newBridge = Instantiate(humanBridge, newPosition, quaternion.identity);
+                newBridge.GetComponent<HingeJoint2D>().connectedBody = i == 0 ? startClone.GetComponent<Rigidbody2D>() : exBridge.GetComponent<Rigidbody2D>();
+                newBridge.transform.rotation = Quaternion.Euler(0, 0, angle);
+                exBridge = newBridge;
+            }
+
+            endClone.GetComponent<HingeJoint2D>().connectedBody = exBridge.GetComponent<Rigidbody2D>();
         }
-        endClone.GetComponent<HingeJoint2D>().connectedBody = exBridge.GetComponent<Rigidbody2D>();
         Destroy(firstBridge);
+
     }
     private void DrawLine()
     {
@@ -92,9 +100,7 @@ public class SpriteBuilding : MonoBehaviour
                 print("current snapPoint : " + currentSnapPoint);
                 if (contains)
                 {
-                    var startPosition = currentSnapPoint.gameObject.transform.position;
-                    var endPosition = nextSnapPoint.gameObject.transform.position;
-                    SpawnBridge(startPosition,worldPos);
+                    SpawnBridge(startPosition, worldPos);
                     print("Attach");
                 }
                 Line.positionCount = 1;
@@ -110,6 +116,7 @@ public class SpriteBuilding : MonoBehaviour
             isInBounds = isInBounds || snap.GetComponent<BoxCollider2D>().bounds.Contains(worldPos);
             if (!snap.GetComponent<BoxCollider2D>().bounds.Contains(worldPos) || !newLine) continue;
             currentSnapPoint = snap;
+            startPosition = worldPos;
             print("current snap : "+currentSnapPoint);
 
         }
@@ -129,5 +136,6 @@ public class SpriteBuilding : MonoBehaviour
     {
         if (_gameManager.isPaused) return;
         DrawLine();
+
     }
 }

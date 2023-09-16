@@ -24,7 +24,7 @@ public class Uncrop : MonoBehaviour
     [SerializeField]
     private MinionOrganiser MinionOrganiser;
     
-
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,6 +35,8 @@ public class Uncrop : MonoBehaviour
 
     private void Start()
     {
+        pressE = GameObject.FindGameObjectWithTag("PressE").GetComponent<Image>();
+        pressE.enabled = false;
         isHitting = false;
         IsInteracting = false;
         savePosition = this.transform.position.y;
@@ -108,7 +110,7 @@ public class Uncrop : MonoBehaviour
 
     private IEnumerator wait()
     {
-        yield return new WaitForSeconds(0.50f);
+        yield return new WaitForSeconds(0.10f);
         Debug.Log("I am working");
         animator.SetBool("IsInteracting", false);
         IsInteracting = false;

@@ -15,7 +15,16 @@ public class movement : MonoBehaviour
     [SerializeField]
     private Sprite playerSprite;
     private AudioManager audioManager;
-
+    [SerializeField] 
+    private LayerMask groundLayer;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    private float radius;
+    [SerializeField]
+    private float jumpForce;
+    [SerializeField]
+    private bool isGrounded = false;
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
@@ -24,7 +33,9 @@ public class movement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
-  
+    private void isgroundChecking() {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
+    }
 
     public void OnMove(InputAction.CallbackContext callback)
     {
@@ -55,6 +66,7 @@ public class movement : MonoBehaviour
 
     private void Update()
     {
+        isgroundChecking();
 
     }
 
@@ -69,6 +81,13 @@ public class movement : MonoBehaviour
     private void Move()
     {
 
+    }
+    public void jump(InputAction.CallbackContext ctx)
+    {
+        if(isGrounded)
+        {
+            rb.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+        }
     }
 
     private void FlipPlayer()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5531989977064775285}
   - component: {fileID: 8832308744787233468}
   - component: {fileID: 2281011463190799968}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BridgeSingle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 7380710480555374707}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 145e167884a2c614dab00daf9b6a479d, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
