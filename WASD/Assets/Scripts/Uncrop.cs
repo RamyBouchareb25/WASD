@@ -21,9 +21,9 @@ public class Uncrop : MonoBehaviour
     private Rigidbody2D rb;
     private movement moving;
     private bool canMove;
-    private GameManager GameManager;
     [SerializeField]
     private MinionOrganiser MinionOrganiser;
+    
 
     private void Awake()
     {
