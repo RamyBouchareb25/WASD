@@ -24,11 +24,7 @@ public class movement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-
-        sprite.sprite = playerSprite;
-    }
+  
 
     public void OnMove(InputAction.CallbackContext callback)
     {

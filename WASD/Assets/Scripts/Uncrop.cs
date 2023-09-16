@@ -12,6 +12,8 @@ public class Uncrop : MonoBehaviour
     private LayerMask Crop;
     [SerializeField]
     private float radius = 5f;
+    [SerializeField]
+    private Image pressE;
     private Animator animator;
     private bool isHitting = true;
     private bool IsInteracting = false;
@@ -19,12 +21,16 @@ public class Uncrop : MonoBehaviour
     private Rigidbody2D rb;
     private movement moving;
     private bool canMove;
+    private GameManager GameManager;
+    [SerializeField]
+    private MinionOrganiser MinionOrganiser;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        moving = GetComponent<movement>();  
+        moving = GetComponent<movement>(); 
+       
     }
 
     private void Start()
@@ -33,6 +39,7 @@ public class Uncrop : MonoBehaviour
         IsInteracting = false;
         savePosition = this.transform.position.y;
         canMove = true;
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,7 +48,7 @@ public class Uncrop : MonoBehaviour
             print("Hit");
             isHitting = true;
             curentCrop = collision.gameObject;
-
+            SHowUI();
         }
     }
 
@@ -51,6 +58,7 @@ public class Uncrop : MonoBehaviour
         {
             isHitting = false;
             curentCrop = null;
+            HideUI();
         }
     }
     public void OnInteract(InputAction.CallbackContext context)
@@ -72,10 +80,12 @@ public class Uncrop : MonoBehaviour
                 animator.SetBool("IsInteracting", true);
                 StartCoroutine(wait());
                 StartCoroutine(ActivateMovement());
+                MinionOrganiser.AddMinion();
+
             }
 
         }
-
+       
     }
 
     private void Update()
@@ -110,7 +120,14 @@ public class Uncrop : MonoBehaviour
         canMove = true;
         this.transform.position = new Vector2(this.transform.position.x, savePosition);
     }
-
+    private void SHowUI()
+    {
+        pressE.enabled = true;
+    }
+    private void HideUI()
+    {
+        pressE.enabled = false;
+    }
 
 
 }

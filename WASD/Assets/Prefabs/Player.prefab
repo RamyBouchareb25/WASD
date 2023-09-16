@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1051152291746143054}
   - component: {fileID: 2510411289720337189}
   - component: {fileID: 6217732592469992693}
-  - component: {fileID: 461314971070140535}
   - component: {fileID: 3518270960835951465}
   m_Layer: 7
   m_Name: Main Camera
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 468867257373781167}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3390532, y: 1.0950333, z: -9.972069}
+  m_LocalPosition: {x: 2.3390532, y: 0.15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,18 +93,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468867257373781167}
   m_Enabled: 1
---- !u!114 &461314971070140535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468867257373781167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b46192e19a3064c9686b6e66ff1806, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &3518270960835951465
 Animator:
   serializedVersion: 5
@@ -260,6 +247,7 @@ MonoBehaviour:
   speed: 2500
   minVelocity: -5
   maxVelocity: 5
+  playerSprite: {fileID: 21300000, guid: 8469499edcdc07f48bc7f61b08d62603, type: 3}
 --- !u!114 &7913945867426085303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +337,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1d73ef4f-e86a-493d-8f60-d18ef53aa539
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6332130550736751324}
+        m_TargetAssemblyTypeName: Uncrop, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6def56e5-ba44-4c19-8ccd-7212be9e71f9
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -366,10 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71245d011a33ed44f9cd62e2a512a2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curentCrop: {fileID: 0}
   Crop:
     serializedVersion: 2
     m_Bits: 512
-  radius: 5
+  radius: 0.5
 --- !u!70 &2805556491888526376
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -402,8 +407,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09762633, y: -0.052299917}
-  m_Size: {x: 0.35845494, y: 0.8117205}
+  m_Offset: {x: 0.09762633, y: -0.043195248}
+  m_Size: {x: 0.35845494, y: 0.79351115}
   m_Direction: 0
 --- !u!95 &3320641578961360504
 Animator:

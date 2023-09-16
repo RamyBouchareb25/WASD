@@ -6,6 +6,14 @@ TagManager:
   tags:
   - AudioManager
   - Crop
+  - GameManager
+  - PressE
+  - MinionsOrganiser
+  - TxTCounter
+  - Flag
+  - Camera
+  - Minion
+  - AnimationSetter
   layers:
   - Default
   - TransparentFX
