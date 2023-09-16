@@ -35,29 +35,35 @@ public class Follow : MonoBehaviour
     private void FixedUpdate()
     {
         FollowCHief();
-        
+
     }
 
     private void FollowCHief()
     {
-        
+
 
         FlipMinion();
-        targetPosition= new Vector2(chiefPosition.position.x + randomOffset, this.transform.position.y);
+        targetPosition = new Vector2(chiefPosition.position.x + randomOffset, this.transform.position.y);
 
-        this.transform.position= Vector2.MoveTowards(this.transform.position,targetPosition, speed * Time.deltaTime);
-        
+        this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, speed * Time.deltaTime);
+
 
         if (Mathf.Abs(transform.position.x - (targetPosition.x)) > 0.1f)
         {
             isFollowing = true;
             animator.SetBool("IsWalking", true);
+            if (Mathf.Abs(transform.position.x - (targetPosition.x)) > 10f && (transform.position.y - (targetPosition.y)) >10f )
+            { 
+                this.transform.position = new Vector2(targetPosition.x, this.transform.position.y);
+            }
         }
-        else 
+        else
         {
             isFollowing = false;
             animator.SetBool("IsWalking", false);
         }
+
+      
     }
 
 

@@ -17,6 +17,8 @@ TagManager:
   - flag
   - Target
   - target
+  - Snap
+  - Chief
   layers:
   - Default
   - TransparentFX
