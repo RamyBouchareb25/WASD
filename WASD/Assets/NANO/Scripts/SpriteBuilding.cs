@@ -24,7 +24,10 @@ public class SpriteBuilding : MonoBehaviour
     [SerializeField]private GameObject start,end,humanBridge;
     [SerializeField] private Vector3 offset;
     [SerializeField]private Vector3 offsetBridge = new Vector3(0.9f,0.4f,0);
-
+    [SerializeField] private GameObject Smoke1,Smoke2;
+    [SerializeField] private int numberOfObjects;
+    private float t;
+    [SerializeField] private float timeDelay = .5f;
     private void Awake()
     {
         SnappingPoints = GameObject.FindGameObjectsWithTag("Snap");
@@ -41,14 +44,30 @@ public class SpriteBuilding : MonoBehaviour
         Line.positionCount = 1;
         newLine = true;
     }
+    IEnumerator SpawnSmoke(Vector3 Start,Vector3 End)
+    {
+        for (var i = 0; i < numberOfObjects; i++)
+        {
+            Vector3 spawnPosition = Vector3.Lerp(Start, End, t);
+            var smoke =  Instantiate(Smoke1, spawnPosition, Quaternion.identity);
+            smoke.GetComponent<ParticleSystem>().Play();
+            // Increment t to move the spawn position along the line
+            t += 1.0f / numberOfObjects;
 
+            // Wait for the specified time delay
+            yield return new WaitForSeconds(timeDelay);
+        }
+    }
     private void SpawnBridge(Vector3 Start,Vector3 End)
     {
         var startClone = Instantiate(start,Start,quaternion.identity);
         var endClone = Instantiate(end, End, Quaternion.identity);
+        Vector3 directionToEnd = (endClone.transform.position - startClone.transform.position).normalized;
+        StartCoroutine(SpawnSmoke(Start, End));
+        
+        
         var exBridge = Instantiate(humanBridge, Start + offset, Quaternion.identity);
         exBridge.GetComponent<HingeJoint2D>().connectedBody = startClone.GetComponent<Rigidbody2D>();
-        Vector3 directionToEnd = (endClone.transform.position - startClone.transform.position).normalized;
         float distance = (endClone.transform.position - startClone.transform.position).magnitude;
         print(distance);
         int peopleCount = Mathf.CeilToInt(distance);

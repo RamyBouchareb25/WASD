@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6bc3467-e3c0-4f0a-ad29-659736df827e" name="Changes" comment="" />
+    <list default="true" id="f6bc3467-e3c0-4f0a-ad29-659736df827e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WASD/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WASD/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NANO/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NANO/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NANO/Scripts/SpriteBuilding.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NANO/Scripts/SpriteBuilding.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -279,6 +279,10 @@ MonoBehaviour:
   humanBridge: {fileID: 2751358112718086133, guid: 85b53e172e7250749a917e236425815b, type: 3}
   offset: {x: 0.9, y: 0, z: 0}
   offsetBridge: {x: 0.9, y: 2.45, z: 0}
+  Smoke1: {fileID: 265766274217486953, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
+  Smoke2: {fileID: 6650199810314842004, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  numberOfObjects: 5
+  timeDelay: 0.5
 --- !u!114 &123343866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8232,11 +8236,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4861849863938549452, guid: 9885de4d7c902ab4283db5863590a242, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 58.64
+      value: 58.53
       objectReference: {fileID: 0}
     - target: {fileID: 4861849863938549452, guid: 9885de4d7c902ab4283db5863590a242, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.34
+      value: -2.41
       objectReference: {fileID: 0}
     - target: {fileID: 4861849863938549452, guid: 9885de4d7c902ab4283db5863590a242, type: 3}
       propertyPath: m_LocalPosition.z
