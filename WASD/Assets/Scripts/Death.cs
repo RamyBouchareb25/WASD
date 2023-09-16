@@ -8,6 +8,8 @@ public class Death : MonoBehaviour
     private Transform spawnPoint;
     [SerializeField]
     private MinionOrganiser minionOrganiser;
+    [SerializeField]
+    private Transform PlayerPosition;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -16,7 +18,7 @@ public class Death : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Minion"))
         {
-            minionOrganiser.DeleteMinion(1);
+            collision.gameObject.transform.position = PlayerPosition.position;
         }
     }
 
@@ -28,7 +30,7 @@ public class Death : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Minion"))
         {
-            minionOrganiser.DeleteMinion(1);
+            collision.gameObject.transform.position = PlayerPosition.position; 
         }
     }
 }
