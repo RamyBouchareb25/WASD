@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2928056157311403167}
   m_Layer: 8
   m_Name: Minion
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,8 +165,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0509765, y: -0.06626949}
-  m_Size: {x: 0.4290631, y: 0.64316446}
+  m_Offset: {x: 0.0509765, y: -0.056045264}
+  m_Size: {x: 0.4290631, y: 0.622716}
   m_Direction: 0
 --- !u!95 &2928056157311403167
 Animator:

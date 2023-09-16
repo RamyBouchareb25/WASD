@@ -7,13 +7,14 @@ public class UI_Minion : MonoBehaviour
     // Start is called before the first frame update
 
     private Animator _animator;
-    [SerializeField]
+    
     private Transform target;
     [SerializeField]
     private float speed;
     void Start()
     {
-       _animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        target = GameObject.FindGameObjectWithTag("target").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -25,7 +26,7 @@ public class UI_Minion : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("AnimationSetter"))
         {
-            _animator.SetBool("IsJumping", true);
+            
         }
     }
 

@@ -14,7 +14,7 @@ public class UI_Chief : MonoBehaviour
     }
     private void Update()
     {
-
+        GetToPosition();
     }
 
     private void GetToPosition()

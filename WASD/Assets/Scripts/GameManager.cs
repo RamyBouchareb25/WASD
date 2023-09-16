@@ -27,18 +27,18 @@ namespace Ramy.Scripts
         private SpriteBuilding _spriteBuilding;
         public void ShowCursor(bool dontShow)
         {
+            print("show");
             Cursor.lockState = dontShow ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = dontShow;
             Time.timeScale = _instance.isPaused ? 0 : 1;
             _canvas.gameObject.SetActive(_instance.isPaused);
             _instance.isPaused = !_instance.isPaused;
             _spriteBuilding = GetComponent<SpriteBuilding>();
-            // print("show");
         }
 
         private void Awake()
         {
-
+            _instance = Instance();
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             _canvas.gameObject.SetActive(false);
             ShowCursor(false);
@@ -59,8 +59,8 @@ namespace Ramy.Scripts
 
         public void OnBuildMode(InputAction.CallbackContext context)
         {
-            // print("build !");
             var pressed = context.performed;
+            print("build ! : " + pressed);
             if (!pressed) return;
             ShowCursor(_instance.isPaused);
         }
