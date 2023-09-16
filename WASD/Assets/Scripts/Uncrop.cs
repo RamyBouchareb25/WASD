@@ -38,8 +38,7 @@ public class Uncrop : MonoBehaviour
         pressE = GameObject.FindGameObjectWithTag("PressE").GetComponent<Image>();
         pressE.enabled = false;
         isHitting = false;
-        IsInteracting = false;
-        savePosition = this.transform.position.y;
+        IsInteracting = false;     
         canMove = true;
         
     }
@@ -75,7 +74,7 @@ public class Uncrop : MonoBehaviour
             {
                 canMove = false;
                 
-                this.transform.position = new Vector2(this.transform.position.x, -1.75f);
+                
                 
                 if (curentCrop != null)
                 Destroy(curentCrop);
@@ -120,7 +119,7 @@ public class Uncrop : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         canMove = true;
-        this.transform.position = new Vector2(this.transform.position.x, savePosition);
+       
     }
     private void SHowUI()
     {

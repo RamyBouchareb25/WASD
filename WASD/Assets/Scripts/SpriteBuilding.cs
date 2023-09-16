@@ -60,6 +60,7 @@ public class SpriteBuilding : MonoBehaviour
         exBridge.transform.rotation = quaternion.Euler(0,0,-angle);
         var firstBridge = exBridge;
         var buildable = orgnizer.DeleteMinion(peopleCount - 1);
+
         //var canBuild = orgnizer.Buildable();
         if (buildable)
         {

@@ -53,7 +53,7 @@ public class Follow : MonoBehaviour
             isFollowing = true;
             animator.SetBool("IsWalking", true);
         }
-        else
+        else 
         {
             isFollowing = false;
             animator.SetBool("IsWalking", false);
