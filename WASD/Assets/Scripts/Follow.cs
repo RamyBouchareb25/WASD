@@ -30,12 +30,11 @@ public class Follow : MonoBehaviour
         randomOffset = Random.Range(min, max);
         speed = Random.Range(minSpeed, maxSpeed);
 
-
-    }
-    private void FixedUpdate()
+ 
+}
+    private void Update()
     {
         FollowCHief();
-
     }
 
     private void FollowCHief()
@@ -52,7 +51,7 @@ public class Follow : MonoBehaviour
         {
             isFollowing = true;
             animator.SetBool("IsWalking", true);
-            if (Mathf.Abs(transform.position.x - (targetPosition.x)) > 10f && (transform.position.y - (targetPosition.y)) >10f )
+            if (Mathf.Abs(transform.position.x - (targetPosition.x)) > 8f && (transform.position.y - (targetPosition.y)) >8f )
             { 
                 this.transform.position = new Vector2(targetPosition.x, this.transform.position.y);
             }
