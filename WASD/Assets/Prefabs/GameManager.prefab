@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5924397679620520401}
   - component: {fileID: 8331005073005052955}
+  - component: {fileID: 1068310782840635577}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -44,3 +45,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a72c0bfa3f6e54a9beee108367d367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1068310782840635577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6297913820169806080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e57cf734534e738b6f3e298a7cbac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
+  minDistance: 0.1
+  start: {fileID: 1186124636149498558, guid: 6ee5b658fbc8da845b835a4511eb7604, type: 3}
+  end: {fileID: 2125793300122919751, guid: 136ee4086eaf80045be9792cdab86644, type: 3}
+  humanBridge: {fileID: 7380710480555374707, guid: 85b53e172e7250749a917e236425815b, type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  offsetBridge: {x: 0.7, y: 0.35, z: 0}
+  orgnizer: {fileID: 0}

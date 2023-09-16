@@ -59,18 +59,16 @@ public class MinionOrganiser : MonoBehaviour
         {
             buildable = true;
            
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                Destroy(minions[i]);
-                minions.RemoveAt(i);
+                Destroy(minions[0]);
+                minions.RemoveAt(0);
             }
             UpdateMinionCounter();
             return true;
         }
-        else
-        {
-            return false;
-                    }
+        return false;
+                    
 
     }
     private void UpdateMinionCounter()
@@ -78,9 +76,6 @@ public class MinionOrganiser : MonoBehaviour
         Debug.Log(minionCounter.text);
         minionCounter.text = minions.Count.ToString();
     }
-    public bool Buildable()
-    {
-        return buildable;
-    }
+  
    
 }
