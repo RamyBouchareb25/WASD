@@ -6,30 +6,80 @@ public class Follow : MonoBehaviour
 {
 
     private Transform chiefPosition;
+    private Rigidbody2D rb;
 
     [SerializeField]
-    private float minPosition = 10f, speed;
+    private float minPosition = 10f, speed,minVelocity,maxVelocity; 
+    [SerializeField]
+    private float min, max, minSpeed, maxSpeed;
+    private float randomOffset;
+    private SpriteRenderer sprite;
+    private Animator animator;
+    
+    private bool isFollowing;
+    [SerializeField]
+    private Sprite MinionSPrite;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
+        sprite.sprite = MinionSPrite;
         chiefPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        randomOffset = Random.Range(min, max);
+        speed = Random.Range(minSpeed, maxSpeed);
+
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        //FollowCHief();
+        FollowCHief();
+        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, minVelocity, maxVelocity), rb.velocity.y);
     }
+
     private void FollowCHief()
     {
-        Vector2 direction = chiefPosition.position - this.transform.position;
+        Vector2 direction = (chiefPosition.position - transform.position).normalized;
+        FlipMinion();
 
-        float distance = direction.magnitude;
-
-        if (distance > minPosition)
+        
+        if (Mathf.Abs(transform.position.x - (chiefPosition.position.x + randomOffset)) > 0.1f)
         {
-            Vector2 movement = Vector2.MoveTowards(this.transform.position, chiefPosition.position, speed * Time.deltaTime);
-
-            this.transform.position = movement;
+            isFollowing = true;
+            animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            isFollowing = false;
+            animator.SetBool("IsWalking", false);
         }
 
+        
+        if (isFollowing)
+        {
+            rb.AddForce(speed * direction * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
     }
+
+
+    private void FlipMinion()
+    {
+        Vector2 direction = chiefPosition.position - this.transform.position;
+        if (direction.x < 0f)
+        {
+            sprite.flipX = true;
+        }
+        else if(direction.x > 0f)
+        {
+            sprite.flipX = false;
+        }
+    }
+
+
+
+
+
 }

@@ -55,9 +55,18 @@ public partial class @WASD: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
-                    ""id"": ""c4d02335-de41-4241-a4a4-8659c45acf05"",
+                    ""id"": ""6def56e5-ba44-4c19-8ccd-7212be9e71f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""72091327-48bc-4b83-a164-bb4690bd052a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -287,12 +296,23 @@ public partial class @WASD: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4629b4d7-d104-4761-87ea-915d692f2c21"",
+                    ""id"": ""cecd027f-7f2b-4843-a2b9-624c4a4c375f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2fffe84-1cdd-460e-b54e-653fa6dafe9b"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""BuildMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -883,7 +903,8 @@ public partial class @WASD: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_BuildMode = m_Player.FindAction("BuildMode", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -960,7 +981,8 @@ public partial class @WASD: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_BuildMode;
     public struct PlayerActions
     {
         private @WASD m_Wrapper;
@@ -968,7 +990,8 @@ public partial class @WASD: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @BuildMode => m_Wrapper.m_Player_BuildMode;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -987,9 +1010,12 @@ public partial class @WASD: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @BuildMode.started += instance.OnBuildMode;
+            @BuildMode.performed += instance.OnBuildMode;
+            @BuildMode.canceled += instance.OnBuildMode;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1003,9 +1029,12 @@ public partial class @WASD: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @BuildMode.started -= instance.OnBuildMode;
+            @BuildMode.performed -= instance.OnBuildMode;
+            @BuildMode.canceled -= instance.OnBuildMode;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1191,7 +1220,8 @@ public partial class @WASD: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnBuildMode(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

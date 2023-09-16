@@ -33,9 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "c4d02335-de41-4241-a4a4-8659c45acf05",
+                    "id": "6def56e5-ba44-4c19-8ccd-7212be9e71f9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuildMode",
+                    "type": "Button",
+                    "id": "72091327-48bc-4b83-a164-bb4690bd052a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -265,12 +274,23 @@
                 },
                 {
                     "name": "",
-                    "id": "4629b4d7-d104-4761-87ea-915d692f2c21",
+                    "id": "cecd027f-7f2b-4843-a2b9-624c4a4c375f",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d2fffe84-1cdd-460e-b54e-653fa6dafe9b",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
+                    "action": "BuildMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
